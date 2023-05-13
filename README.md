@@ -1,5 +1,5 @@
 
-###　修正前
+### 修正前
 
 `<% if schedule.exists?(:date => Date.today .. Float::INFINITY) %>`
 
