@@ -1,24 +1,13 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+###　修正前
 
-Things you may want to cover:
+`<% if schedule.exists?(:date => Date.today .. Float::INFINITY) %>`
 
-* Ruby version
+exists?はActiveRecord::Baseクラスのメソッドで、Railsでデータベースからデータを検索する際にう。モデルクラス（例：GirlやSchedule）あるいはActiveRecord::Relationオブジェクトに対して使います。
+'exists?'は、exists?メソッドがScheduleインスタンス（個々のScheduleレコード）に対して呼び出されたためにエラーが発生した。
 
-* System dependencies
+### 修正後
+`<% if (Date.today .. Float::INFINITY).cover?(schedule.date) %>`
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+期待する日付範囲に該当するかどうかを直接チェックする方が適切。
+ここでは (Date.today .. Float::INFINITY).cover?(schedule.date)という形で、schedule.dateが期待する日付範囲に含まれるかをチェックする。
